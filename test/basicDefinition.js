@@ -4,7 +4,7 @@ var assert = require("assert"),
 describe("Basic definition", function() {
   it("Should create a constructor object for a model", function () {
     var NewModel = jModel.create("NewModel", {});
-    assert.equal("function", typeof NewModel);
+    assert.equal(typeof NewModel, "function");
   });
   it("Should accept a text-only 'attribute' configuration and assume the type of the value provided", function () {
     var User = jModel.create("User", {
@@ -16,6 +16,6 @@ describe("Basic definition", function() {
 
     u1.name = 1;
 
-    assert.equal("number", typeof u1.name);
+    assert.equal(typeof u1.name, "number");
   });
 });

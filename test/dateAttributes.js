@@ -12,7 +12,7 @@ describe("Date attributes", function() {
 
     u1.dateOfBirth = new Date();
 
-    assert.equal(true, u1.dateOfBirth instanceof Date);
+    assert.equal(u1.dateOfBirth instanceof Date, true);
   });
   it("Should accept attribute configuration where the type is supplied as a string", function(){
     var User = jModel.create("User", {
@@ -24,7 +24,7 @@ describe("Date attributes", function() {
 
     u1.dateOfBirth = new Date();
 
-    assert.equal(true, u1.dateOfBirth instanceof Date);
+    assert.equal(u1.dateOfBirth instanceof Date, true);
   });
   it("Should accept and convert a string date value conforming to ISO 8601 standards", function(){
     // Refer to http://momentjs.com/docs/#/parsing/
@@ -37,8 +37,8 @@ describe("Date attributes", function() {
 
     u1.dateOfBirth = "2013-02-08 09:30:26.123";
 
-    assert.equal(true, u1.dateOfBirth instanceof Date);
-    assert.equal(1360315826123, u1.dateOfBirth.getTime());
+    assert.equal(u1.dateOfBirth instanceof Date, true);
+    assert.equal(u1.dateOfBirth.getTime(), 1360315826123);
   });
   it("Should accept and convert an invalid string date value to null", function(){
     // Refer to http://momentjs.com/docs/#/parsing/
@@ -51,6 +51,6 @@ describe("Date attributes", function() {
 
     u1.dateOfBirth = "blah blah blah";
 
-    assert.equal(null, u1.dateOfBirth);
+    assert.equal(u1.dateOfBirth, null);
   });
 });

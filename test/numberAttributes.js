@@ -12,7 +12,7 @@ describe("Number attributes", function() {
 
     u1.age = 1;
 
-    assert.equal("number", typeof u1.age);
+    assert.equal(typeof u1.age, "number");
   });
   it("Should accept attribute configuration where the type is supplied as a string", function(){
     var User = jModel.create("User", {
@@ -24,7 +24,7 @@ describe("Number attributes", function() {
 
     u1.age = 1;
 
-    assert.equal("number", typeof u1.age);
+    assert.equal(typeof u1.age, "number");
   });
   it("Should accept and convert a string value for a number attribute", function(){
     var User = jModel.create("User", {
@@ -36,7 +36,7 @@ describe("Number attributes", function() {
 
     u1.age = "1";
 
-    assert.equal("number", typeof u1.age);
+    assert.equal(typeof u1.age, "number");
   });
   it("Should accept and convert a date value", function(){
     var User = jModel.create("User", {
@@ -48,7 +48,7 @@ describe("Number attributes", function() {
 
     u1.age = new Date();
 
-    assert.equal("number", typeof u1.age);
+    assert.equal(typeof u1.age, "number");
   });
   it("Should accept and convert an invalid string value to NaN", function(){
     var User = jModel.create("User", {
@@ -60,7 +60,7 @@ describe("Number attributes", function() {
 
     u1.age = "blah";
 
-    assert.equal(true, isNaN(u1.age));
+    assert.equal(isNaN(u1.age), true);
   });
   it("Should accept and convert a string value, containing a '.' char, into a float", function(){
     var User = jModel.create("User", {
@@ -72,7 +72,7 @@ describe("Number attributes", function() {
 
     u1.age = "1.6";
 
-    assert.equal(true, u1.age === parseFloat(u1.age));
+    assert.equal(u1.age === parseFloat(u1.age), true);
   });
   it("Should accept and convert a string value, not containing a '.' char, into an integer", function(){
     var User = jModel.create("User", {
@@ -84,6 +84,6 @@ describe("Number attributes", function() {
 
     u1.age = "1";
 
-    assert.equal(true, u1.age === parseInt(u1.age));
+    assert.equal(u1.age === parseInt(u1.age), true);
   });
 });
