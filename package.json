@@ -7,7 +7,7 @@
     "url": "https://github.com/pritchardjonathan/j-model.git"
   },
   "dependencies": {
-
+    "moment": "~2.8.4"
   },
   "devDependencies": {
 

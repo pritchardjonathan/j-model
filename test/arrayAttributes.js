@@ -1,0 +1,84 @@
+var assert = require("assert"),
+  jModel = require("../lib/j-model");
+
+describe("Array attributes", function() {
+  it("Should accept an empty array as type", function(){
+    var User = jModel.create("User", {
+        attributes: [
+          { name: "roles", type: [] }
+        ]
+      }),
+      u1 = new User();
+
+    u1.roles = [ "hello" ];
+    assert.equal(true, Array.isArray(u1.roles));
+    assert.equal("string", typeof u1.roles[0]);
+
+    u1.roles = [ 1 ];
+    assert.equal(true, Array.isArray(u1.roles));
+    assert.equal("number", typeof u1.roles[0]);
+
+    u1.roles = [ true ];
+    assert.equal(true, Array.isArray(u1.roles));
+    assert.equal("boolean", typeof u1.roles[0]);
+
+    u1.roles = [ {} ];
+    assert.equal(true, Array.isArray(u1.roles));
+    assert.equal("object", typeof u1.roles[0]);
+
+  });
+  it("Should accept a type wrapped in an array and enforce array item conversion", function(){
+    var User = jModel.create("User", {
+        attributes: [
+          { name: "roles", type: [ String ] }
+        ]
+      }),
+      u1 = new User();
+
+    u1.roles = [ "hello" ];
+    assert.equal(true, Array.isArray(u1.roles));
+    assert.equal("string", typeof u1.roles[0]);
+
+    u1.roles.push("hello");
+    assert.equal("string", typeof u1.roles[1]);
+
+    u1.roles = [ 1 ];
+    assert.equal(true, Array.isArray(u1.roles));
+    assert.equal("string", typeof u1.roles[0]);
+
+    u1.roles.push(1);
+    assert.equal("string", typeof u1.roles[1]);
+
+    u1.roles = [ true ];
+    assert.equal(true, Array.isArray(u1.roles));
+    assert.equal("string", typeof u1.roles[0]);
+
+    u1.roles.push(true);
+    assert.equal("string", typeof u1.roles[1]);
+
+    u1.roles = [ {} ];
+    assert.equal(true, Array.isArray(u1.roles));
+    assert.equal("string", typeof u1.roles[0]);
+
+
+    u1.roles.push({});
+    assert.equal("string", typeof u1.roles[1]);
+
+  });
+  it("Should accept and tolerate bad/empty value assignment", function() {
+    var User = jModel.create("User", {
+        attributes: [
+          { name: "roles", type: [String] }
+        ]
+      }),
+      u1 = new User();
+
+    u1.roles = "hello";
+    assert.equal(true, Array.isArray(u1.roles));
+    assert.equal(0, u1.roles.length);
+
+    u1.roles = null;
+    assert.equal(null, u1.roles);
+
+  });
+});
