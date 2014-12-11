@@ -53,4 +53,16 @@ describe("Date attributes", function() {
 
     assert.equal(u1.dateOfBirth, null);
   });
+  it("Should accept and convert string dates in an alternative format", function(){
+    var User = jModel.create("User", {
+        attributes: [
+          { name: "dateOfBirth", type: Date, dateFormat: "DD-MM-YYYY" }
+        ]
+      }),
+      u1 = new User();
+
+    u1.dateOfBirth = "12-02-1995";
+
+    assert.equal(u1.dateOfBirth.toString(), "Sun Feb 12 1995 00:00:00 GMT+0000 (GMT)");
+  });
 });
