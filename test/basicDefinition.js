@@ -38,8 +38,10 @@ describe("Basic definition", function() {
 
     assert.equal(u1.name, 1);
     assert.equal(u1.age, 100);
-    assert.equal(u1.dateOfBirth, "1");
+    assert.equal(u1.dateOfBirth.getTime(), 1360315826123);
     assert.equal(u1.admin, true);
-    assert.equal(u1.roles, [ "1", "", "true" ]);
+    assert.equal(u1.roles[0], [ "1" ]);
+    assert.equal(u1.roles[1], [ "Thu Jan 01 1970 00:00:00 GMT+0000 (GMT)" ]);
+    assert.equal(u1.roles[2], [ "true" ]);
   });
 });
