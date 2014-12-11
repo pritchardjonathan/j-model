@@ -28,9 +28,18 @@ describe("Array attributes", function() {
 
   });
   it("Should accept a type wrapped in an array and enforce array item conversion", function(){
-    var User = jModel.create("User", {
+    var Address = jModel.create("Address", {
         attributes: [
-          { name: "roles", type: [ String ] }
+          { name: "firstLine", type: String },
+          { name: "secondLine", type: String },
+          { name: "city", type: String },
+          { name: "postcode", type: String }
+        ]
+      }),
+      User = jModel.create("User", {
+        attributes: [
+          { name: "roles", type: [ String ] },
+          { name: "addresses", type: [ Address ]}
         ]
       }),
       u1 = new User();
