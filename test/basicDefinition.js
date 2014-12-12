@@ -63,5 +63,38 @@ describe("Basic definition", function() {
     assert.equal(u1.name, "John Doe");
   });
 
+  it("Should expose a helper method when defined using the Function object for type", function(){
+    var User = jModel.create("User", {
+        attributes: [
+          { name: "name", type: String },
+          { name: "getLowerCaseName", type: Function, fn: function(){
+            return this.name.toLowerCase();
+          }}
+        ]
+      }),
+      u1;
+
+    u1 = new User({ name: "John Doe" });
+
+    assert.equal(u1.getLowerCaseName(), "john doe");
+  });
+
+  it("Should expose a helper method when defined using 'function' string for type", function(){
+    var User = jModel.create("User", {
+        attributes: [
+          { name: "name", type: String },
+          { name: "getLowerCaseName", type: "function", fn: function(){
+            return this.name.toLowerCase();
+          }}
+        ]
+      }),
+      u1;
+
+    u1 = new User({ name: "John Doe" });
+
+    assert.equal(u1.getLowerCaseName(), "john doe");
+  });
+
 });
+
 
