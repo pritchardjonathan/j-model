@@ -2,6 +2,7 @@ var assert = require("assert"),
   jModel = require("../lib/j-model");
 
 describe("Basic definition", function() {
+
   it("Should create a constructor object for a model", function () {
     var NewModel = jModel.create("NewModel", {});
     assert.equal(typeof NewModel, "function");
@@ -18,6 +19,7 @@ describe("Basic definition", function() {
 
     assert.equal(typeof u1.name, "number");
   });
+
   it("Should accept and convert attribute data passed in the model constructor", function () {
     var User = jModel.create("User", {
       attributes:[
@@ -44,4 +46,22 @@ describe("Basic definition", function() {
     assert.equal(u1.roles[1], [ "Thu Jan 01 1970 00:00:00 GMT+0000 (GMT)" ]);
     assert.equal(u1.roles[2], [ "true" ]);
   });
+
+  it("Should run an initialisation function if supplied on create", function(){
+    var User = jModel.create("User", {
+        attributes: [
+          { name: "name", type: String }
+        ],
+        init: function(){
+          this.name = "John Doe";
+        }
+      }),
+      u1;
+
+    u1 = new User();
+
+    assert.equal(u1.name, "John Doe");
+  });
+
 });
+
