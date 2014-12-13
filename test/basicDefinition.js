@@ -7,6 +7,7 @@ describe("Basic definition", function() {
     var NewModel = jModel.create("NewModel", {});
     assert.equal(typeof NewModel, "function");
   });
+
   it("Should accept a text-only 'attribute' configuration and assume the type of the value provided", function () {
     var User = jModel.create("User", {
         attributes: [
@@ -79,20 +80,19 @@ describe("Basic definition", function() {
     assert.equal(u1.getLowerCaseName(), "john doe");
   });
 
-  it("Should expose a helper method when defined using 'function' string for type", function(){
+  it("Should accept a model instance in it's constructor as initialisation data", function(){
     var User = jModel.create("User", {
         attributes: [
-          { name: "name", type: String },
-          { name: "getLowerCaseName", type: "function", fn: function(){
-            return this.name.toLowerCase();
-          }}
+          { name: "name", type: String }
         ]
       }),
-      u1;
+      u1,
+      u2;
 
     u1 = new User({ name: "John Doe" });
+    u2 = new User(u1);
 
-    assert.equal(u1.getLowerCaseName(), "john doe");
+    assert.equal(u2.name, "John Doe");
   });
 
 });
