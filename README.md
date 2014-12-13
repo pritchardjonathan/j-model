@@ -4,5 +4,5 @@ JModel - Simple Javascript Models
 
 TODO:
 * Interceptors
-* Tags
 * Custom type converters
+* Model constructor should take model instance
