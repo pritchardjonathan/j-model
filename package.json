@@ -1,13 +1,13 @@
 {
   "name": "JModel",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Simple Javascript Models",
   "repository": {
     "type": "git",
     "url": "https://github.com/pritchardjonathan/j-model.git"
   },
   "dependencies": {
-
+    "moment": "~2.8.4"
   },
   "devDependencies": {
 
