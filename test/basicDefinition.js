@@ -95,6 +95,26 @@ describe("Basic definition", function() {
     assert.equal(u2.name, "John Doe");
   });
 
+  it("Should accept a custom type converter", function(){
+    var User, u1;
+    jModel.converterFactory.registerConverter("customExample", function(value, attribute){
+      // Transform the value somehow
+      return value.b
+    });
+
+    User = jModel.create("User", {
+        attributes: [
+          { name: "name", type: String },
+          { name: "foo", type:"customExample" }
+        ]
+      });
+
+    u1 = new User({ name: "John Doe", foo: { b: "bar" } });
+
+    assert.equal(u1.foo, "bar")
+
+  });
+
 });
 
 
