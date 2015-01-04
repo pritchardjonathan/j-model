@@ -34,15 +34,27 @@ var Address = jModel.create("Address", {
       });
 var User = jModel.create("User", {
       attributes: [
-        { name: "name", type: String, tags: [ "public", "authenticated" ], validators: [
-          function(value, result){
-            if(value.indexOf(" ") === -1){
-              result.addMessage("Name must include both forename and surname");
-              return false;
-            } else return true;
-          }
-        ]},
-        { name: "email", type: String, tags: [ "authenticated" ] },
+        {
+          name: "name",
+          type: String,
+          tags: [ "public", "authenticated" ],
+          validators: [
+            function(value, result){
+              if(value.indexOf(" ") === -1){
+                result.addMessage("Name must include both forename and surname");
+                return false;
+              } else return true;
+            }
+          ]
+        },
+        {
+          name: "email",
+          type: String,
+          tags: [ "authenticated" ],
+          validators:[
+            jModel.validators.email("Please supply a valid email address")
+          ]
+        },
         { name: "dateOfBirth", type: Date, tags: [ "authenticated" ] },
         { name: "admin", type: Boolean, tags: [ "public" ] },
         { name: "roles", type: [ String ], tags: [ "public" ] },
@@ -86,15 +98,25 @@ jModel.validate(u1, function(result){
   // result.global.messages[0].message = "Admin users must have an email address";
 });
 
+u1.email = "bad email @ddress";
+
+jModel.validate(u1, function(result){
+  // result.valid === false
+  // result.attribute.valid === false
+  // result.attribute.messages[0].name === "email"
+  // result.attribute.messages[0].message = "Please supply a valid email address";
+});
+
 u1.name = "John";
 
 jModel.validate(u1, function(result){
   // result.valid === false
   // result.attribute.valid === false
-  // result.global.messages[0].name === "name"
-  // result.global.messages[0].message = "Name must include both forename and surname";
+  // result.attribute.messages[0].name === "name"
+  // result.attribute.messages[0].message = "Name must include both forename and surname";
 });
 
+// Serialises to a normal object
 // JSON.stringify(u1) === "{"name":"John","admin":true}"
 
 ```
