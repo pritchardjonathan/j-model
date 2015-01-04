@@ -2,6 +2,7 @@
   "name": "JModel",
   "version": "0.0.1",
   "description": "Simple Javascript Models",
+  "main": "./lib/j-model",
   "repository": {
     "type": "git",
     "url": "https://github.com/pritchardjonathan/j-model.git"
