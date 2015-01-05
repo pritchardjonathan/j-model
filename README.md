@@ -19,7 +19,7 @@ To install j-model, use [npm](http://github.com/isaacs/npm):
 $ npm install j-model --save
 ```
 
-# Basic Usage
+# Usage Overview
 
 This is how it works:
 
@@ -119,4 +119,32 @@ jModel.validate(u1, function(result){
 // Serialises to a normal object
 // JSON.stringify(u1) === "{"name":"John","admin":true}"
 
+```
+
+# Nested Model Tag Filtering
+
+
+``` javascript
+var Address = jModel.create("Address", {
+    attributes: [
+      { name: "firstLine", type: String, tags: [ "short" ] },
+      { name: "secondLine", type: String },
+      { name: "city", type: String },
+      { name: "postcode", type: String, tags: [ "short" ] }
+    ]
+  }),
+  User = jModel.create("User", {
+    attributes: [
+      { name: "roles", type: [ String ] },
+      { name: "address", type: Address, nestedModelTags: [ "short" ] }
+    ]
+  }),
+  u1 = new User({ address: new Address({
+      firstLine: "123 Somelane",
+      secondLine: "Whereville"
+    })
+  });
+
+assert.equal(u1.address.firstLine, "123 Somelane");
+assert.equal(typeof u1.address.secondLine, "undefined");
 ```
