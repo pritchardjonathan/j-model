@@ -1,6 +1,6 @@
 {
-  "name": "JModel",
-  "version": "0.0.4",
+  "name": "j-model",
+  "version": "0.0.5",
   "description": "Simple Javascript Models",
   "main": "./lib/j-model",
   "repository": {
