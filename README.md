@@ -148,3 +148,7 @@ var Address = jModel.create("Address", {
 assert.equal(u1.address.firstLine, "123 Somelane");
 assert.equal(typeof u1.address.secondLine, "undefined");
 ```
+
+# To-do
+
+* Enums
