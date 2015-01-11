@@ -16,7 +16,7 @@ describe("Model attributes", function() {
       }),
       article = new Article({ title: "The quick brown fox", author: { name: "John Doe" }});
 
-    assert.equal(article.author.getModelName(), "User");
+    assert.equal(article.author.jModel.getName(), "User");
   });
   it("Should accept attribute configuration where the type is supplied as a string", function(){
     var User = jModel.create("User", {
@@ -32,7 +32,7 @@ describe("Model attributes", function() {
       }),
       article = new Article({ title: "The quick brown fox", author: { name: "John Doe" }});
 
-    assert.equal(article.author.getModelName(), "User");
+    assert.equal(article.author.jModel.getName(), "User");
   });
   it("Should accept a null value passed into the constructor", function(){
     var User = jModel.create("User", {
@@ -82,7 +82,7 @@ describe("Model attributes", function() {
 
     article.author = { name: "John Doe" };
 
-    assert.equal(article.author.getModelName(), "User");
+    assert.equal(article.author.jModel.getName(), "User");
     assert.equal(article.author.name, "John Doe");
   });
   it("Should accept a null value assigned to a model attribute", function(){
