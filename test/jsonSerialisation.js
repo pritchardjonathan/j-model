@@ -21,5 +21,4 @@ describe("JSON Serialisation", function () {
 
     assert.equal(JSON.stringify(u1), '{"name":"John Doe","age":21,"dateOfBirth":"1970-01-01T00:00:00.000Z","roles":["cms","editor","premium"]}');
   });
-
 });
