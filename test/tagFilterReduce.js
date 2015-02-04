@@ -11,7 +11,7 @@ describe("Tag Filter Reduce", function() {
         ]
       }),
       u1 = new User({ name: "John Doe", email: "john.doe@google.com" }),
-      filteredU1 = jModel.filter(u1, [ "public" ]);
+      filteredU1 = jModel.filter.reduce(u1, [ "public" ]);
 
     assert.equal(filteredU1.name, "John Doe");
     assert.equal(typeof filteredU1.email, "undefined");
@@ -26,7 +26,7 @@ describe("Tag Filter Reduce", function() {
         ]
       }),
       u1 = new User({ name: "John Doe", email: "john.doe@google.com" }),
-      filteredU1 = jModel.filter(u1, [ ]);
+      filteredU1 = jModel.filter.reduce(u1, [ ]);
 
     assert.equal(u1.name, "John Doe");
     assert.equal(u1.email, "john.doe@google.com");
@@ -64,7 +64,7 @@ describe("Tag Filter Reduce", function() {
         postcode: "additional postcode 2" })
     ];
 
-    filteredU1 = jModel.filter(u1, [ "public" ]);
+    filteredU1 = jModel.filter.reduce(u1, [ "public" ]);
 
     assert.equal(typeof filteredU1.primaryAddress.firstLine, "undefined");
     assert.equal(filteredU1.primaryAddress.postcode, "primary postcode");
