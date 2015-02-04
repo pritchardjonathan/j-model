@@ -152,3 +152,4 @@ assert.equal(typeof u1.address.secondLine, "undefined");
 # To-do
 
 * Enums
+* Aliases
