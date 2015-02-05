@@ -99,7 +99,7 @@ describe("Basic definition", function() {
     var User, u1;
     jModel.converterFactory.registerConverter("customExample", function(value, attribute){
       // Transform the value somehow
-      return value.b
+      return value.b;
     });
 
     User = jModel.create("User", {
@@ -110,9 +110,9 @@ describe("Basic definition", function() {
       });
 
     u1 = new User({ name: "John Doe", foo: { b: "bar" } });
-
-    assert.equal(u1.foo, "bar")
-
+    assert.equal(u1.foo, "bar");
+    u1.foo = { b: "foo" };
+    assert.equal(u1.foo, "foo");
   });
 
 });

@@ -149,6 +149,28 @@ assert.equal(u1.address.firstLine, "123 Somelane");
 assert.equal(typeof u1.address.secondLine, "undefined");
 ```
 
+# Custom types
+Teach it about new types:
+
+``` javascript
+var User, u1;
+jModel.converterFactory.registerConverter("customExample", function(value, attribute){
+  // Transform the value if necessary
+  return value.b;
+});
+
+User = jModel.create("User", {
+    attributes: [
+      { name: "name", type: String },
+      { name: "foo", type:"customExample" }
+    ]
+  });
+
+u1 = new User({ name: "John Doe", foo: { b: "bar" } });
+assert.equal(u1.foo, "bar");
+u1.foo = { b: "foo" };
+assert.equal(u1.foo, "foo");
+```
 # To-do
 
 * Enums
