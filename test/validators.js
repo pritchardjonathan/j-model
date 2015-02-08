@@ -298,8 +298,58 @@ describe("Model validators", function() {
         assert.equal(u1ValidationResult.attribute.messages[1].message, "User must have between 1 and 2 roles");
         done();
       });
-
     });
-
   });
+
+  describe("Validation with tags", function(){
+    it("Should only validate attributes with one or more tags when tags are supplied to the validate function", function(done){
+      var User = jModel.create("User", {
+          attributes: [
+            {
+              name: "role1",
+              type: [ Number ],
+              tags: [],
+              validators:[ jModel.validators.lengthRange(1, 2, "User must have between 1 and 2 roles") ]
+            },
+            {
+              name: "role2",
+              type: [ Number ],
+              tags: [ "update" ],
+              validators:[ jModel.validators.lengthRange(1, 2, "User must have between 1 and 2 roles") ]
+            },
+            {
+              name: "role3",
+              type: [ Number ],
+              tags: [ "update" ],
+              validators:[ jModel.validators.lengthRange(1, 2, "User must have between 1 and 2 roles") ]
+            }
+          ]
+        }),
+        u1 = new User({
+          role1: [ ],
+          role2: [ 0 ],
+          role3: [ 0, 0, 0 ]
+        });
+
+      jModel.validate(u1, [ "update" ], function(err, u1ValidationResult){
+        assert.equal(u1ValidationResult.valid, false);
+        assert.equal(u1ValidationResult.attribute.valid, false);
+        assert.equal(u1ValidationResult.attribute.messages.length, 1);
+        assert.equal(u1ValidationResult.attribute.messages[0].name, "role3");
+        assert.equal(u1ValidationResult.attribute.messages[0].message, "User must have between 1 and 2 roles");
+        done();
+      });
+
+      u1.role3 = [ 0, 0 ];
+
+      jModel.validate(u1, [ "update" ], function(err, u1ValidationResult){
+        assert.equal(u1ValidationResult.valid, true);
+        assert.equal(u1ValidationResult.attribute.valid, true);
+        assert.equal(u1ValidationResult.attribute.messages.length, 0);
+        done();
+      });
+
+    })
+  })
+
 });

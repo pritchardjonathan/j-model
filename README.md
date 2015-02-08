@@ -107,6 +107,12 @@ jModel.validate(u1, function(result){
   // result.attribute.messages[0].message = "Please supply a valid email address";
 });
 
+// Validate "public" (tagged) attribute values only
+jModel.validate(u1, [ "public" ], function(result){
+  // result.valid === true
+  // result.attribute.valid === true
+});
+
 u1.name = "John";
 
 jModel.validate(u1, function(result){
