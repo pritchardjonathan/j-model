@@ -81,12 +81,12 @@ var User = jModel.create("User", {
     });
 var u1 = new User({ admin: true });
 
-var limitedU1 = u1.toJSON("public");
+var limitedU1 = jModel.filter.reduce(u1, [ "public" ])
 
 // limitedU1.name === "John Doe"
 // limitedU1.dateOfBirth === undefined
 
-limitedU1 = u1.toJSON("authenticated");
+limitedU1 = jModel.filter.reduce(u1, [ "authenticated" ])
 
 // limitedU1.name === "John Doe"
 // limitedU1.dateOfBirth === new Date(0)
@@ -107,6 +107,12 @@ jModel.validate(u1, function(result){
   // result.attribute.messages[0].message = "Please supply a valid email address";
 });
 
+// Validate "public" (tagged) attribute values only
+jModel.validate(u1, [ "public" ], function(result){
+  // result.valid === true
+  // result.attribute.valid === true
+});
+
 u1.name = "John";
 
 jModel.validate(u1, function(result){
@@ -121,8 +127,24 @@ jModel.validate(u1, function(result){
 
 ```
 
-# Nested Model Tag Filtering
+# Model Tag Filtering
+Use the jModel.filter.reduce() function to project a limited version of the model.
 
+``` javascript
+var User = jModel.create("User", {
+    attributes: [
+      { name: "name", type: String, tags: [ "public", "admin" ]},
+      { name: "email", type: String, tags: [ "private", "admin" ]}
+    ]
+  }),
+  u1 = new User({ name: "John Doe", email: "john.doe@google.com" }),
+  filteredU1 = jModel.filter.reduce(u1, [ "public" ]);
+
+assert.equal(filteredU1.name, "John Doe");
+assert.equal(typeof filteredU1.email, "undefined");
+```
+
+# Nested Model Tag Filtering
 
 ``` javascript
 var Address = jModel.create("Address", {
