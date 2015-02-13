@@ -65,4 +65,22 @@ describe("Date attributes", function() {
 
     assert.equal(u1.dateOfBirth.toString(), "Sun Feb 12 1995 00:00:00 GMT+0000 (GMT)");
   });
+  it("Should accept undefined or null and convert to null when no dateFormat is specified", function(){
+    var User = jModel.create("User", {
+        attributes: [
+          { name: "dateOfBirth", type: Date }
+        ]
+      }),
+      u1 = new User({dateOfBirth: undefined});
+
+    assert.equal(u1.dateOfBirth, null);
+
+    u1.dateOfBirth = {}.blah;
+
+    assert.equal(u1.dateOfBirth, null);
+
+    u1.dateOfBirth = null;
+
+    assert.equal(u1.dateOfBirth, null);
+  });
 });
